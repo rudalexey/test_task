@@ -7,6 +7,7 @@ import java.util.Optional;
  * @author Aleksey Rud
  */
 public interface MyRepository<T,ID> {
+	int count();
 	int save(T entity);
 	int update(T entity);
 	int deleteById(ID id);

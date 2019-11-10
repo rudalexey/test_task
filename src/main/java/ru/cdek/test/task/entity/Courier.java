@@ -1,9 +1,6 @@
 package ru.cdek.test.task.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.Set;
 import java.util.UUID;
@@ -16,7 +13,8 @@ import java.util.UUID;
 @NoArgsConstructor
 @Builder
 public class Courier {
-	private UUID id;
+	@Builder.Default
+	private UUID id=UUID.randomUUID();
 	private String name;
 	private Set<Task> tasks;
 

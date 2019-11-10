@@ -1,5 +1,6 @@
 package ru.cdek.test.task.repository;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import ru.cdek.test.task.entity.Courier;
@@ -12,12 +13,15 @@ import java.util.UUID;
  * @author Aleksey Rud
  */
 @Repository
+@RequiredArgsConstructor
 public class JdbcCourierRepository implements MyRepository<Courier, UUID> {
 
 	private final JdbcTemplate jdbcTemplate;
 
-	public JdbcCourierRepository(JdbcTemplate jdbcTemplate) {
-		this.jdbcTemplate = jdbcTemplate;
+	@Override
+	public int count() {
+		return Optional.ofNullable(jdbcTemplate.queryForObject(
+				"select count(1) from courier", Integer.class)).orElse(0);
 	}
 
 	@Override

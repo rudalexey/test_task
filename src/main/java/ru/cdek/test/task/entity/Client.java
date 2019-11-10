@@ -15,7 +15,8 @@ import java.util.UUID;
 @NoArgsConstructor
 @Builder
 public class Client {
-	private UUID id;
+	@Builder.Default
+	private UUID id=UUID.randomUUID();
 	private String name;
 	private String phoneNumber;
 	private String address;
