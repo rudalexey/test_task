@@ -15,6 +15,9 @@ public class MyServerException extends Exception {
 		super(message);
 		this.code = HttpStatus.BAD_REQUEST;
 	}
+	public MyServerException(HttpStatus code) {
+		this.code = code;
+	}
 	public MyServerException(String message, HttpStatus code) {
 		super(message);
 		this.code = code;

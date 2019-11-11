@@ -2,6 +2,7 @@ package ru.cdek.test.task.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,7 +14,7 @@ import java.util.UUID;
 /**
  * @author Aleksey Rud
  */
-@RestController
+@Controller
 @RequestMapping("/courier")
 @RequiredArgsConstructor
 public class CourierController {
@@ -27,7 +28,7 @@ private final JdbcCourierRepository jdbcCourierRepository;
 		return ResponseEntity.ok().build();
 	}
 	@GetMapping()
-	public ResponseEntity getAll(){
-		return ResponseEntity.ok(jdbcCourierRepository.findAll());
+	public String courier(){
+		return "courier";
 	}
 }

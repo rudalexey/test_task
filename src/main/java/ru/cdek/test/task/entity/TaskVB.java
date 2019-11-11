@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 /**
  * @author Aleksey Rud
@@ -15,17 +16,13 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Task {
+public class TaskVB {
 	private Long id; // номер заказа
-	private Client client; // Клиент
-	private Courier courier; // Назначенный курьер
+	private String clientId; // Клиент
+	private String courierId; // Назначенный курьер
 	@DateTimeFormat(pattern = "dd-MM-yyyy HH:mm")
 	private LocalDateTime shipment; // Дата получения груза курьером
 	@DateTimeFormat(pattern = "dd-MM-yyyy HH:mm")
 	private LocalDateTime receiving; // Дата доставки груза клиенту
 	private String whoCreated; // имя оператора который согдал задачу
-	private String whoLastUpdate; // Имя оператора который поледний ее обновил
-	private LocalDateTime dateCreate; // Время согдания задачи
-	private LocalDateTime dateUpdate; // Время обновления задачи
-
 }

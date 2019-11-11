@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link th:rel="stylesheet"  th:href="@{webjars/bootstrap/4.3.1/css/bootstrap.min.css} " rel="stylesheet" media="screen" />
+    <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">CDEK</title>
+    <script th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+    <script th:src="@{/webjars/jquery.inputmask/3.1.0/jquery.inputmask.bundle.min.js}"></script>
+    <script th:src="@{/webjars/jquery.inputmask/3.1.0/inputmask/jquery.inputmask.date.extensions.js}"></script>
+    <script th:src="@{/webjars/jquery.inputmask/3.1.0/inputmask/jquery.inputmask.js}"></script>
+</head>
+<body>
+<div th:replace="header :: header"> This header content is going to be replaced.</div>
+<div class="container">
+    <div class="row">
+        <div class="col-2" layout:fragment="sidebar"/>
+        <div class="col" layout:fragment="content"/>
+    </div>
+</div>
+<footer th:insert="footer :: footer" class="footer">
+</footer>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html >
+<html xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorate="~{layout}"
+>
+<head>
+    <title>Курьер</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link th:href="@{/css/core.css}" rel="stylesheet" media="screen" />
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-2" layout:fragment="sidebar">
+            <h1>Меню</h1>
+            <button th:onclick="window.location.href='/logout'" class="btn btn-light">Выйти</button>
+        </div>
+        <div class="col" layout:fragment="content">
+            <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+                <form th:action="@{/courier}" th:object="${couriers}" method="post">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

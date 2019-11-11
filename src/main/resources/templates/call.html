@@ -1,0 +1,123 @@
+<!DOCTYPE html >
+<html xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorate="~{layout}"
+>
+<head>
+    <title>Call-центр</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link th:href="@{/css/core.css}" rel="stylesheet" media="screen" />
+
+</head>
+<body>
+<div class="container">
+
+    <div class="row" layout:fragment="sidebar">
+            <div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
+        <div class="btn-group" role="group">
+            <button th:onclick="window.location.href='/'" class="btn btn-light btn-secondary">Главная</button>
+            <button th:onclick="window.location.href='/'" class="btn btn-light btn-secondary">Обновить</button>
+            <button data-toggle="modal" data-target="#addTaskWindow" class="btn btn-light btn-secondary">Добавить заказ</button>
+            <!-- Modal -->
+            <div class="modal fade" id="addTaskWindow" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Добавить заказ</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="add-task-form">
+                            <form class="" th:action="@{/call/edit}" th:object="${taskFormObject}" method="post" id="addTaskForm">
+                                <div class="form-row pb-3">
+                                    <div class="col">
+                                        <select name="clientId" class="form-control" required id="clientID">
+                                            <option selected>Выберите клиента...</option>
+                                            <option th:each="client : ${clients}" th:value="${client.id}"th:text="${client.name }"/>
+                                        </select>
+                                    </div>
+                                    <div class="col">
+                                        <select  name="courierId" class="form-control" id="couriersID">
+                                            <option value="null" selected>Назначить курьера...</option>
+                                            <option th:each="courier : ${couriers}" th:value="${courier.id}"th:text="${courier.name }"/>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col">
+                                        <input type="text" id="receivingId" name="receiving" class="form-control"
+                                               aria-describedby="dateReceivingHelp" required placeholder="Груз доставлен(Дата)">
+<!--                                        <small id="dateReceivingHelp" class="form-text text-muted">Дата в формате дд-мм-гггг чч:мм</small>-->
+                                    </div>
+                                    <div class="col">
+                                        <input type="text"  id="shipmentId"  name="shipment" class="form-control" aria-describedby="dateShipmentHelp"  placeholder="Груз вручен курьеру(Дата)">
+<!--                                        <small id="dateShipmentHelp" class="form-text text-muted">Дата в формате дд-мм-гггг чч:мм</small>-->
+                                    </div>
+                                </div>
+                            </form>
+                                <script>
+                                    $(document).ready(function(){
+                                        $("#receivingId").inputmask("99-99-9999 99:99",{ "placeholder": "дд-мм-гггг чч:мм" });
+                                        $("#shipmentId").inputmask("99-99-9999 99:99",{ "placeholder": "дд-мм-гггг чч:мм" });
+
+                                    });
+                                </script>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+                            <button type="submit" class="btn btn-primary"  form="addTaskForm">Сохранить</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text" id="btnGroupAddon">Поиск</div>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Введите номер заказа" aria-describedby="btnGroupAddon">
+                </div>
+            </div>
+    </div>
+    <div class="row" layout:fragment="content">
+        <div class="table-responsive-sm" >
+            <table class="table table-hover text-center">
+                <thead class="thead-light">
+                <tr>
+                    <th scope="col">Номер заказа</th>
+                    <th style="width: 95px" scope="col">Клиент</th>
+                    <th style="width: 95px" scope="col">Курьер</th>
+                    <th scope="col">Дата получения груза</th>
+                    <th scope="col">Дата доставки груза</th>
+                    <th scope="col">Оператор</th>
+                    <th scope="col">Дата создания задачи</th>
+                    <th scope="col">Кто обновил</th>
+                    <th scope="col">Дата последнего обновления</th>
+                    <th>#</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="task,rowStat : ${tasks}">
+                    <td><span th:text="${task.id}"></span></td>
+                    <td><span th:text="${task.client?.name}"></span></td>
+                    <td><span th:text="${task.courier?.name}"></span></td>
+                    <td><span th:text="${#temporals.format(task.shipment, 'dd-MM-yyyy HH:mm')}"></span></td>
+                    <td><span th:text="${#temporals.format(task.receiving, 'dd-MM-yyyy HH:mm')}"></span></td>
+                    <td><span th:text="${task.whoCreated}"></span></td>
+                    <td><span th:text="${#temporals.format(task.dateCreate, 'dd-MM-yyyy HH:mm')}"></span></td>
+                    <td><span th:text="${task.whoLastUpdate}"></span></td>
+                    <td><span th:text="${#temporals.format(task.dateUpdate, 'dd-MM-yyyy HH:mm')}"></span></td>
+                    <td>
+                        <button type="submit" name="editRow"
+                                th:value="${rowStat.index}">Edit</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>
