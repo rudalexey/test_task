@@ -1,0 +1,3 @@
+INSERT INTO public.client (id, name, phone_number, address) VALUES ('7707993f-0dfa-4395-93f4-8463e029c7a2', 'Клиент 1', '+79000000000', 'Адрес доставки 1');
+INSERT INTO public.client (id, name, phone_number, address) VALUES ('83d5223b-f480-4df8-80c7-1d22243b1cde', 'Клиент 2', '+79000000022', 'Адрес доставки 2');
+INSERT INTO public.client (id, name, phone_number, address) VALUES ('27e3da47-62e5-435d-8689-f2096c360e33', 'Клиент 3', '+79000000033', 'Адрес доставки 3');
